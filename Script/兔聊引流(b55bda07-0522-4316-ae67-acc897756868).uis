@@ -1,0 +1,22 @@
+Function 函数名1()
+	uip.SetAttribute("热门",{"选中":false})
+	uip.SetAttribute("土豪榜",{"选中":false})
+End Function
+
+Function 函数名2()
+	uip.SetAttribute("附近",{"选中":false})
+	uip.SetAttribute("土豪榜",{"选中":false})
+End Function
+
+Function 函数名3()
+	uip.SetAttribute("附近",{"选中":false})
+	uip.SetAttribute("热门",{"选中":false})
+End Function
+
+Function 函数名4()
+	uip.SetAttribute("后缀",{"选中":false})
+End Function
+
+Function 函数名5()
+	uip.SetAttribute("前缀",{"选中":false})
+End Function

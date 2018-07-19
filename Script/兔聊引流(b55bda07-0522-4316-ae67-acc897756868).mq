@@ -1,0 +1,472 @@
+
+Function 进入发现()
+	Dim intX1, intY1
+	FindPic 0, 0, 0, 0, "Attachment:在发现.png", "202020", 0, 0.9, intX1, intY1
+	TracePrint intX1
+	TracePrint intY1
+	If intX1 > -1 And intY1 > -1 Then 
+		开始引流() 
+	Else 
+		Dim intX2, intY2
+		FindPic 0, 0, 0, 0, "Attachment:不在发现.png", "202020", 0, 0.9, intX2, intY2
+		TracePrint intX2
+		TracePrint intY2
+		If intX2 > -1 And intY2 > -1 Then 
+			Tap intX2 + 5, intY2 + 5
+			Delay 1000
+			进入发现()
+		Else 
+			Delay 2000
+			KeyPress "Back"
+			退出判断()
+		End If
+	End If
+End Function
+
+//防止误退出		
+Function 退出判断()
+	Dim intX3, intY3
+	FindPic 0, 0, 0, 0, "Attachment：退出提示.png", "202020", 0, 0.9, intX3, intY3
+	Delay 5000
+	If intX3 > -1 And intY3 > -1 Then 
+		退出判断()
+	Else 
+		进入发现()
+	End If
+End Function
+
+Function 开始引流()
+	TracePrint("start")
+	If Statu = 0 Then
+		附近入口 
+	ElseIf Statu = 1 Then
+		热门入口 
+	ElseIf Statu = 2 Then
+		土豪榜入口 
+	End If
+	TracePrint Statu
+End Function
+
+Function 附近入口()
+	Dim intXf1, intYf1
+	FindPic 0, 0, 0, 0, "Attachment:在附近.png", "202020", 0, 0.9, intXf1, intYf1
+	If intXf1 > -1 And intYf1 > -1 Then 
+		TracePrint intXf1
+		TracePrint intYf1
+		Delay 1000
+		附近引流
+	Else 
+		Dim intXf2, intYf2
+		FindPic 0, 0, 0, 0, "Attachment:不在附近.png", "202020", 0, 0.9, intXf2, intYf2
+		If intXf2 > -1 And intYf2 > -1 Then 
+			Delay 1000
+			Tap intXf2 + 10, intYf2 + 10
+			附近入口
+		Else 
+			KeyPress "Back"
+			退出判断
+		End If
+	End If
+End Function
+
+Function 热门入口()
+	Dim intXr1, intYr1
+	FindPic 0, 0, 0, 0, "Attachment:在热门.png", "202020", 0, 0.9, intXr1, intYr1
+	TracePrint intXr1
+	TracePrint intYr1
+	If intXr1 > -1 And intYr1 > -1 Then 
+		Delay 1000
+		热门引流
+	Else 
+		Dim intXr2, intYr2
+		FindPic 0, 0, 0, 0, "Attachment:不在热门.png", "202020", 0, 0.9, intXr2, intYr2
+		If intXr2 > -1 And intYr2 > -1 Then 
+			Delay 1000
+			Tap intXr2 + 10, intYr2 + 10
+			热门入口
+		Else 
+			KeyPress "Back"
+			退出判断
+		End If
+	End If
+End Function
+
+Function 土豪榜入口()
+	Dim intXt1, intYt1
+	FindPic 0, 0, 0, 0, "Attachment:在土豪榜.png", "202020", 0, 0.9, intXt1, intYt1
+	TracePrint intXt1
+	TracePrint intYt1
+	If intXt1 > -1 And intYt1 > -1 Then 
+		Delay 1000
+		土豪榜引流
+	Else 
+		Dim intXt2, intYt2
+		FindPic 0, 0, 0, 0, "Attachment:不在土豪榜.png", "202020", 0, 0.9, intXt2, intYt2
+		If intXt2 > -1 And intYt2 > -1 Then 
+			Delay 1000
+			Tap intXt2 + 10, intYt2 + 10
+			土豪榜入口
+		Else 
+			KeyPress "Back"
+			退出判断
+		End If
+	End If
+End Function
+
+Function 附近引流()
+	附近引流设置  
+	Delay 500
+	附近_个人入口
+End Function
+
+Function 热门引流()
+	Delay 1000
+	热门榜单选择1 
+	
+	Dim intX1, intY1
+	FindPic 0, 0, 0, 0, "Attachment:土豪_提示关闭.png", "000000", 0, 0.9, intX1, intY1	
+	If intX1 > -1 And intY1 > -1 Then 
+		Tap 196, 21
+		Delay 1000
+	End If
+	
+	If ReadUIConfig("榜单1", 1) Then 
+		
+	Else 
+		热门榜单选择2
+	End If
+	
+	热门聊天
+	
+End Function
+
+
+Function 热门榜单选择1()
+	Dim i = ReadUIConfig("榜单1", 0)
+	Delay 1000
+	If i = 0 Then 
+		Tap 144, 628
+	ElseIf i = 1 Then
+		Tap 144, 454
+	ElseIf i = 2 Then
+		Tap 144, 273
+	ElseIf i = 3 Then
+		Tap 144, 90
+	End If
+	Delay 1000
+End Function
+
+Function 热门榜单选择2()
+	Dim i = ReadUIConfig("榜单2", 0)
+	Delay 1000
+	If i = 0 Then 
+		Tap 210, 525
+	ElseIf i = 1 Then
+		Tap 210, 197
+	End If
+	Delay 1000
+End Function
+
+Function 热门聊天()
+	Delay 1000
+	Dim intX1, intY1
+	Dim times = ReadUIConfig("评论次数","500")/2
+	TracePrint times
+	For times
+		FindPic 250, 0, 400, 360, "Attachment:热门_聊天入口.png", "000000", 0, 0.9, intX1, intY1
+		If intX1 > -1 And intY1 > -1 Then 
+			Tap intX1, intY1
+			Delay 1500
+			聊天入口 
+			Delay 1000
+			KeyPress "Back"
+			Delay 1000
+			Dim intX2, intY2
+			FindPic 250, 360, 610, 720, "Attachment:热门_聊天入口.png", "000000", 0, 0.9, intX2, intY2
+			If intX2 > -1 And intY2 > -1 Then 
+				Tap intX2, intY2
+				Delay 1500
+				聊天入口 
+				Delay 1000
+				KeyPress "Back"
+				Delay 1000
+				Swipe 320, 230, 200, 230
+				Delay 1000
+			End If
+		Else 
+			Swipe 320, 230, 200, 230
+			Delay 1000
+		End If
+	Next
+End Function
+
+Function 土豪榜引流()
+	Delay 1000
+	Tap 142, 174
+	
+	土豪榜榜单选择
+	
+	Dim intX1, intY1
+	FindPic 0, 0, 0, 0, "Attachment:土豪_提示关闭.png", "000000", 0, 0.9, intX1, intY1	
+	If intX1 > -1 And intY1 > -1 Then 
+		Tap 196, 21
+		Delay 1000
+	End If
+	
+	Dim times = ReadUIConfig("评论次数","500")
+	For times
+		Dim intX, intY
+		FindPic 177, 0, 266, 720, "Attachment:土豪_个人入口.png", "000000", 0, 0.9, intX, intY
+		If intX > -1 And intY > -1 Then 
+			Tap intX + 10, intY + 150
+			Delay 1000
+			聊天入口 
+			Delay 1000
+			KeyPress "Back"
+			Delay 1000
+			Swipe 257, 200, 177, 200
+			Delay 1000
+		Else 
+			Delay 1000
+			Swipe 257, 200, 177, 200
+			Delay 1000
+		End If
+	Next
+End Function
+
+Function 土豪榜榜单选择()
+	Dim i = ReadUIConfig("榜单", 1)
+	Delay 1000
+	If i = 0 Then 
+		Tap 146, 541
+	ElseIf i = 1 Then
+		Tap 146, 182
+	End If
+	Delay 1000
+End Function
+
+Function 附近引流设置()
+	Delay 1000
+	Swipe 268, 293, 503, 260
+	附近_地区 
+	Delay 1000
+	Swipe 268, 293, 503, 260
+	Delay 1000
+	Tap 139,44
+	附近_性别 
+	Delay 1000
+End Function
+
+Function 附近_地区()
+	Delay 500
+	Tap 141, 613
+	Delay 1000
+	Dim times1 = Int(35 * Rnd() + 0)
+	Dim times2 = Int(35 * Rnd() + 0)
+	For times1
+		Swipe 1165, 481, 1097, 481
+		Delay 1000
+	Next
+	For times2
+		Swipe 1165, 240, 1097, 240
+		Delay 1000
+	Next
+	Delay 1000
+	Tap 1026,69
+End Function
+
+Function 附近_性别()	 
+	For sex
+		Delay 1000
+		Swipe 1165, 340, 1100,340
+	Next
+	Delay 1000
+	Tap 1026,69
+End Function
+
+Function 附近_个人入口()
+	Dim count = ReadUIConfig("评论次数","500")
+	For count
+		Dim intX2, intY2
+		FindPic 0, 0, 0, 0, "Attachment:没有更多数据.png", "202020", 0, 0.9, intX2, intY2
+		If intX2 > -1 And intY2 > -1 Then 
+			Delay 500
+			附近_地区 
+			Delay 1500
+		End If
+		
+		Delay 1000
+		Swipe 885, 200, 755, 200
+		Delay 500
+		Dim intX, intY
+		FindPic 110, 0, 300, 720, "Attachment:聊天.png", "202020", 0, 0.9, intX, intY
+		If intX > -1 And intY > -1 Then 
+			Delay 500
+			Tap intX, intY + 200
+			Delay 1000
+			聊天入口 
+			Delay 1000
+			KeyPress "Back"
+			Delay 500
+		Else
+			Delay 1000
+			Swipe 885, 200, 755, 20
+			附近_个人入口
+		End If
+	Next
+End Function
+
+Function 聊天入口()
+	Dim intX, intY
+	FindPic 0, 0, 0, 0, "Attachment:文字聊天.png", "202020", 0, 0.9, intX, intY
+	If intX > -1 And intY > -1 Then 
+	 	Delay 1000
+		Tap 587, 108
+		Delay 1000
+		Tap intX, intY
+		聊天 
+		Delay 1000
+		KeyPress "Back"
+		Delay 2000
+		
+	Else 
+	 	Delay 1000
+		KeyPress "Back"
+		附近_个人入口 	
+	End If
+End Function
+
+Function 聊天()
+	Delay 1000
+	Dim intX, intY
+	FindPic 0, 0, 0, 0, "Attachment:聊天框.png", "202020", 0, 0.9, intX, intY
+	If intX > -1 And intY > -1 Then 
+		Delay 500
+		Tap 1196, 655
+		评论内容 
+		Delay 1000
+		KeyPress "Back"
+		Delay 3000
+	End If
+End Function
+
+Function 评论内容()
+	
+	添加前后缀
+	Delay 500
+	InputText pl1
+	Delay 500
+	Tap 1193,56
+	If pl2 = "空" Then 
+		TracePrint "没有填写评论2"
+	Else 
+		InputText pl2
+		Delay 500
+		Tap 1193,56	
+	End If
+	If pl3 = "空" Then 
+		TracePrint "没有填写评论3"
+	Else 
+		InputText pl3
+		Delay 500
+		Tap 1193,56	
+	End If
+	If pl4 = "空" Then 
+		TracePrint "没有填写评论4"
+	Else 
+		InputText pl4
+		Delay 500
+		Tap 1193,56	
+	End If
+End Function
+
+Function 添加前后缀()
+	TracePrint("前后缀")
+	If ReadUIConfig("前缀") Then 
+		pl1 = 随机字符() & p1
+		If p2 = "空" Then 
+			TracePrint "没有填写评论2"
+			pl2 = p2
+		Else 
+			pl2 = 随机字符()&p2 	
+		End If
+		If p3 = "空" Then 
+			TracePrint "没有填写评论3"
+			pl3 = p3
+		Else 
+			pl3 = 随机字符()&p3	
+		End If
+		If p4 = "空" Then 
+			TracePrint "没有填写评论4"
+			pl4 = p4
+		Else 
+			pl4 = 随机字符()&p4
+		End If
+	ElseIf ReadUIConfig("后缀") Then
+		pl1 = p1&随机字符()
+		If p2 = "空" Then 
+			TracePrint "没有填写评论2"
+			pl2 = p2
+		Else 
+			pl2 = p2&随机字符() 	
+		End If
+		If p3 = "空" Then 
+			TracePrint "没有填写评论3"
+			pl3 = p3
+		Else 
+			pl3 = p3&随机字符()	
+		End If
+		If p4 = "空" Then 
+			TracePrint "没有填写评论4"
+			pl4 = p4
+		Else 
+			pl4 = p4 & 随机字符()
+		End If
+	Else 
+		pl1 = p1
+		pl2 = p2
+		pl3 = p3
+		pl4	= p4
+	End If
+	TracePrint pl1
+	TracePrint pl2	
+	TracePrint pl3
+	TracePrint pl4
+End Function
+
+Function 随机字符()
+	TracePrint ("随机字符")
+	Dim words = ".>:!@#$%"
+	Dim random, d, temp
+	For 2
+		random = Int(8 * Rnd() + 1)
+		d = UTF8.Mid(words, random, 1)
+		temp = temp&d
+	Next
+	随机字符 = temp
+End Function
+
+Dim Statu
+If ReadUIConfig("附近") Then 
+	Statu = 0	
+ElseIf ReadUIConfig("热门") Then
+	Statu = 1
+ElseIf ReadUIConfig("土豪榜") Then
+	Statu = 2
+End If
+
+Randomize
+Dim p1 = ReadUIConfig("评论1","你好！")
+Dim p2 = ReadUIConfig("评论2","空")
+Dim p3 = ReadUIConfig("评论3","空")
+Dim p4 = ReadUIConfig("评论4","空")
+TracePrint p1
+TracePrint p2
+TracePrint p3
+TracePrint p4
+Dim pl1, pl2, pl3, pl4
+
+Dim sex = ReadUIConfig("性别")
+TracePrint sex
+
+进入发现 
